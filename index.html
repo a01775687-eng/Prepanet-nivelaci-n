@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrepaNet — Cursos de Nivelación</title>
+<meta name="description" content="Nivelación Académica y Nivelación Tecnológica para estudiantes de PrepaNet: aprende a tu propio ritmo, sin presión.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#12284c;
+    --navy-light:#1c3d6f;
+    --teal:#12a3b8;
+    --teal-light:#e5f7f9;
+    --green:#3fb27f;
+    --orange:#f4a63e;
+    --ink:#1c2733;
+    --ink-soft:#5a6b7b;
+    --bg:#f6f8fb;
+    --line:#e2e8f0;
+    --radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.6;
+  }
+  h1,h2,h3,.display{
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    line-height:1.18;
+    margin:0;
+  }
+  p{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
+  section{padding:84px 0;}
+  .section-head{max-width:640px;margin-bottom:44px;}
+  .section-head h2{font-size:clamp(1.7rem,3.2vw,2.3rem);color:var(--navy);}
+  .section-head p{margin-top:12px;color:var(--ink-soft);font-size:1.05rem;}
+  .tag{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--teal-light);color:var(--teal);
+    font-weight:700;font-size:.82rem;
+    padding:6px 14px;border-radius:999px;margin-bottom:16px;
+  }
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'Poppins',sans-serif;font-weight:600;font-size:.96rem;
+    padding:13px 26px;border-radius:10px;border:none;cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--orange);color:#1c2733;box-shadow:0 4px 0 #c97f1f;}
+  .btn-primary:active{transform:translateY(3px);box-shadow:0 1px 0 #c97f1f;}
+  .btn-teal{background:var(--teal);color:#fff;box-shadow:0 4px 0 #0c7a8a;}
+  .btn-teal:active{transform:translateY(3px);box-shadow:0 1px 0 #0c7a8a;}
+  .btn-outline{background:#fff;border:2px solid var(--line);color:var(--navy);}
+
+  /* HEADER */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,.94);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;}
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Poppins';font-weight:800;font-size:1.25rem;color:var(--navy);}
+  .logo .dot{color:var(--teal);}
+  nav ul{list-style:none;display:flex;gap:28px;margin:0;padding:0;}
+  nav ul a{font-weight:600;color:var(--ink-soft);font-size:.94rem;}
+  nav ul a:hover{color:var(--teal);}
+  .burger{display:none;background:none;border:none;cursor:pointer;padding:8px;}
+  .burger span{display:block;width:24px;height:2.5px;background:var(--navy);margin:5px 0;border-radius:3px;}
+
+  /* HERO */
+  .hero{padding:70px 0 30px;}
+  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+  .hero h1{font-size:clamp(2.1rem,4vw,3rem);color:var(--navy);}
+  .hero h1 .accent{color:var(--teal);}
+  .hero p.lead{margin-top:18px;font-size:1.12rem;color:var(--ink-soft);max-width:480px;}
+  .hero-actions{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap;}
+  .stat-row{margin-top:34px;display:flex;gap:30px;flex-wrap:wrap;}
+  .stat-row div strong{display:block;font-family:'Poppins';font-size:1.5rem;color:var(--navy);}
+  .stat-row div span{font-size:.86rem;color:var(--ink-soft);font-weight:600;}
+  .hero-visual{
+    background:var(--navy);border-radius:20px;padding:26px;
+  }
+
+  /* PROBLEM */
+  .problem{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start;}
+  .problem-grid p{color:var(--ink-soft);font-size:1.02rem;margin-bottom:16px;}
+  .barrier-list{display:flex;flex-direction:column;gap:14px;}
+  .barrier{display:flex;gap:14px;align-items:flex-start;background:var(--bg);border-radius:12px;padding:16px 18px;}
+  .barrier .ic{width:36px;height:36px;border-radius:10px;background:var(--teal-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;}
+  .barrier strong{display:block;color:var(--navy);font-size:.96rem;}
+  .barrier span{font-size:.88rem;color:var(--ink-soft);}
+
+  /* PROGRAMS */
+  .program-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
+  .program-card{
+    border-radius:var(--radius);padding:32px;
+    display:flex;flex-direction:column;gap:16px;
+  }
+  .program-card.academica{background:linear-gradient(160deg,var(--navy),var(--navy-light));color:#fff;}
+  .program-card.tecnologica{background:#fff;border:2px solid var(--line);}
+  .program-card .pic{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;}
+  .program-card.academica .pic{background:rgba(255,255,255,.12);}
+  .program-card.tecnologica .pic{background:var(--teal-light);}
+  .program-card h3{font-size:1.3rem;}
+  .program-card.tecnologica h3{color:var(--navy);}
+  .program-card p{font-size:.97rem;}
+  .program-card.academica p{opacity:.85;}
+  .program-card.tecnologica p{color:var(--ink-soft);}
+  .program-card ul{list-style:none;padding:0;margin:6px 0 0;display:flex;flex-direction:column;gap:8px;}
+  .program-card li{font-size:.92rem;padding-left:24px;position:relative;}
+  .program-card.academica li{opacity:.9;}
+  .program-card.tecnologica li{color:var(--ink-soft);}
+  .program-card li::before{content:"✓";position:absolute;left:0;font-weight:800;color:var(--green);}
+  .program-card.academica li::before{color:var(--orange);}
+
+  /* DEMO / PROTOTYPE */
+  .demo{background:#fff;border-top:1px solid var(--line);}
+  .demo-tabs{display:flex;gap:10px;margin-bottom:28px;flex-wrap:wrap;}
+  .demo-tab{
+    padding:10px 20px;border-radius:999px;border:2px solid var(--line);
+    background:#fff;font-family:'Poppins';font-weight:600;font-size:.9rem;color:var(--ink-soft);
+    cursor:pointer;
+  }
+  .demo-tab.active{background:var(--navy);border-color:var(--navy);color:#fff;}
+
+  .app-frame{
+    border-radius:16px;overflow:hidden;border:1px solid var(--line);
+    box-shadow:0 20px 50px -30px rgba(18,40,76,.4);
+  }
+  .app-topbar{
+    background:var(--navy);color:#fff;display:flex;align-items:center;
+    justify-content:space-between;padding:12px 20px;font-size:.86rem;
+  }
+  .app-topbar .app-logo{font-family:'Poppins';font-weight:800;display:flex;align-items:center;gap:8px;}
+  .app-topbar .app-nav{display:flex;gap:20px;font-weight:600;opacity:.85;}
+  .app-topbar .app-nav span.on{opacity:1;border-bottom:2px solid var(--orange);padding-bottom:4px;}
+  .app-body{background:#f4f7fb;padding:26px;}
+  .app-crumb{font-size:.82rem;color:var(--ink-soft);margin-bottom:10px;}
+  .app-title{font-family:'Poppins';font-weight:700;font-size:1.15rem;color:var(--navy);margin-bottom:18px;}
+  .app-cols{display:grid;grid-template-columns:2fr 1fr;gap:18px;}
+  .app-card{background:#fff;border-radius:14px;padding:20px;border:1px solid var(--line);}
+  .app-card h4{font-family:'Poppins';font-size:.98rem;color:var(--navy);margin-bottom:12px;}
+  .video-box{
+    background:var(--navy);border-radius:10px;height:110px;
+    display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.6rem;
+    margin-bottom:14px;
+  }
+  .quiz-opt{
+    display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;
+    border:1px solid var(--line);margin-bottom:8px;cursor:pointer;font-size:.92rem;
+  }
+  .quiz-opt input{accent-color:var(--teal);}
+  .quiz-opt.correct{border-color:var(--green);background:#eefbf3;}
+  .quiz-opt.wrong{border-color:#e2635a;background:#fdeeed;}
+  .quiz-feedback{font-size:.88rem;font-weight:600;margin-top:8px;min-height:20px;}
+  .quiz-feedback.ok{color:var(--green);}
+  .quiz-feedback.err{color:#c94b41;}
+  .progress-bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin:10px 0 4px;}
+  .progress-fill{height:100%;background:var(--green);width:20%;transition:width .4s ease;border-radius:99px;}
+  .progress-label{font-size:.82rem;color:var(--ink-soft);}
+  .resource-link{display:flex;align-items:center;gap:8px;font-size:.88rem;color:var(--teal);font-weight:600;margin-top:8px;}
+
+  .step-row{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line);}
+  .step-row:last-child{border-bottom:none;}
+  .step-num{
+    width:26px;height:26px;border-radius:50%;background:var(--line);color:var(--ink-soft);
+    display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;flex-shrink:0;
+  }
+  .step-num.done{background:var(--green);color:#fff;}
+  .step-row h5{font-family:'Poppins';font-size:.9rem;color:var(--navy);margin-bottom:2px;}
+  .step-row p{font-size:.84rem;color:var(--ink-soft);}
+  .whatsapp-btn{
+    margin-top:16px;width:100%;justify-content:center;
+    background:var(--green);color:#fff;box-shadow:0 4px 0 #2c8a5e;
+  }
+
+  .demo-view{display:none;}
+  .demo-view.active{display:block;}
+
+  /* TESTIMONIALS */
+  .testimonials{background:var(--bg);}
+  .test-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .test-card{background:#fff;border-radius:var(--radius);padding:28px;border:1px solid var(--line);}
+  .test-card p.quote{color:var(--ink-soft);font-size:1rem;font-style:italic;}
+  .test-person{display:flex;align-items:center;gap:12px;margin-top:18px;}
+  .avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Poppins';font-weight:700;color:#fff;}
+  .test-person strong{display:block;font-size:.92rem;color:var(--navy);}
+  .test-person span{font-size:.84rem;color:var(--ink-soft);}
+
+  /* ODS */
+  .ods{background:var(--navy);color:#fff;}
+  .ods .wrap{display:flex;align-items:center;gap:34px;flex-wrap:wrap;}
+  .ods-badge{
+    width:96px;height:96px;border-radius:16px;background:var(--orange);
+    display:flex;align-items:center;justify-content:center;font-family:'Poppins';font-weight:800;
+    font-size:1.5rem;color:var(--navy);flex-shrink:0;
+  }
+  .ods h2{font-size:1.5rem;}
+  .ods p{margin-top:10px;opacity:.82;max-width:640px;font-size:.98rem;}
+
+  /* CONTACT */
+  .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:50px;}
+  .contact-info{display:flex;flex-direction:column;gap:20px;}
+  .info-row{display:flex;gap:12px;align-items:flex-start;}
+  .info-row .ic{width:38px;height:38px;border-radius:10px;background:var(--teal-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .info-row strong{display:block;font-size:.94rem;color:var(--navy);}
+  .info-row span{font-size:.87rem;color:var(--ink-soft);}
+  form{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px;display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  form .full{grid-column:1/-1;}
+  label{display:block;font-size:.83rem;font-weight:700;color:var(--navy);margin-bottom:6px;}
+  input,select{width:100%;padding:11px 13px;border-radius:9px;border:1.5px solid var(--line);font-family:'Inter';font-size:.92rem;color:var(--ink);background:var(--bg);}
+  input:focus,select:focus{outline:none;border-color:var(--teal);}
+  .form-msg{grid-column:1/-1;font-size:.88rem;font-weight:600;padding:10px 13px;border-radius:9px;display:none;}
+  .form-msg.show{display:block;}
+  .form-msg.ok{background:#e4f6e1;color:#2f7a1f;}
+  .form-msg.err{background:#fde4e1;color:#b93a2b;}
+
+  /* FOOTER */
+  footer{background:var(--navy);color:#c6d3e6;padding:50px 0 24px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,.12);}
+  .foot-logo{font-family:'Poppins';font-weight:800;font-size:1.2rem;color:#fff;margin-bottom:10px;}
+  footer p.desc{font-size:.88rem;opacity:.75;max-width:280px;}
+  footer h4{font-family:'Poppins';font-size:.9rem;color:#fff;margin-bottom:14px;}
+  footer ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px;}
+  footer ul a,footer ul li{font-size:.87rem;opacity:.78;}
+  .foot-bottom{padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.8rem;opacity:.6;}
+
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}}
+
+  @media (max-width:980px){
+    .hero-grid,.problem-grid,.contact-grid{grid-template-columns:1fr;}
+    .program-grid,.test-grid{grid-template-columns:1fr;}
+    .app-cols{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:760px){
+    nav ul{display:none;}
+    .burger{display:block;}
+    form{grid-template-columns:1fr;}
+    section{padding:60px 0;}
+    .app-topbar .app-nav{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo">📘 PrepaNet <span class="dot">·</span> Nivelación</div>
+    <nav id="navMenu">
+      <ul>
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#programas">Programas</a></li>
+        <li><a href="#plataforma">Plataforma</a></li>
+        <li><a href="#testimonios">Testimonios</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <a href="#contacto" class="btn btn-teal" style="padding:10px 20px;font-size:.88rem;">Inscríbete</a>
+    <button class="burger" id="burgerBtn" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="hero" id="inicio">
+  <div class="wrap hero-grid">
+    <div class="reveal in">
+      <div class="tag">🎓 Servicio Social · Tec de Monterrey</div>
+      <h1>Nivélate a tu ritmo, sin <span class="accent">presión</span> y sin miedo a la tecnología</h1>
+      <p class="lead">Dos cursos gratuitos para estudiantes de PrepaNet: uno para reforzar tus bases académicas y otro para perder el miedo a usar la plataforma en línea. Avanza cuando tú puedas.</p>
+      <div class="hero-actions">
+        <a href="#programas" class="btn btn-primary">Ver los cursos</a>
+        <a href="#plataforma" class="btn btn-outline">Probar la plataforma</a>
+      </div>
+      <div class="stat-row">
+        <div><strong>2</strong><span>cursos de nivelación</span></div>
+        <div><strong>5–10 min</strong><span>por sesión</span></div>
+        <div><strong>100%</strong><span>a tu propio ritmo</span></div>
+      </div>
+    </div>
+    <div class="hero-visual reveal in">
+      <svg viewBox="0 0 420 340" style="width:100%;">
+        <rect x="0" y="0" width="420" height="340" rx="14" fill="#0e2140"/>
+        <rect x="24" y="24" width="372" height="40" rx="8" fill="#1c3d6f"/>
+        <circle cx="46" cy="44" r="6" fill="#f4a63e"/>
+        <text x="64" y="49" font-family="Poppins" font-weight="700" font-size="13" fill="#fff">PrepaNet</text>
+        <text x="300" y="49" font-family="Inter" font-size="11" fill="#9fb3cf">Nivelación Académica</text>
+        <rect x="24" y="80" width="230" height="130" rx="10" fill="#12a3b8"/>
+        <text x="40" y="106" font-family="Poppins" font-weight="700" font-size="12" fill="#fff">Lección 1: Fracciones</text>
+        <rect x="40" y="120" width="198" height="56" rx="8" fill="#0e2140" opacity="0.35"/>
+        <circle cx="68" cy="148" r="14" fill="#ffffff" opacity=".85"/>
+        <path d="M63 148 L73 148 M68 143 L68 153" stroke="#12a3b8" stroke-width="2.5"/>
+        <rect x="40" y="186" width="198" height="14" rx="7" fill="#ffffff" opacity=".25"/>
+        <rect x="40" y="186" width="60" height="14" rx="7" fill="#f4a63e"/>
+        <rect x="270" y="80" width="126" height="130" rx="10" fill="#1c3d6f"/>
+        <text x="286" y="104" font-family="Poppins" font-weight="700" font-size="11" fill="#fff">Tu progreso</text>
+        <text x="286" y="128" font-family="Poppins" font-weight="800" font-size="22" fill="#3fb27f">20%</text>
+        <rect x="24" y="226" width="372" height="90" rx="10" fill="#1c3d6f"/>
+        <text x="40" y="250" font-family="Poppins" font-weight="700" font-size="12" fill="#fff">Nivelación Tecnológica</text>
+        <text x="40" y="270" font-family="Inter" font-size="11" fill="#c6d3e6">Misión: aprender a entregar una tarea</text>
+        <rect x="40" y="282" width="150" height="20" rx="10" fill="#3fb27f"/>
+        <text x="115" y="296" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="10" fill="#fff">Subir archivo ✓</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="problem" id="problema">
+  <div class="wrap problem-grid">
+    <div class="reveal">
+      <div class="section-head" style="margin-bottom:20px;">
+        <h2>¿Por qué nace este proyecto?</h2>
+      </div>
+      <p>PrepaNet atiende el rezago educativo en el bachillerato ofreciendo un modelo en línea flexible para jóvenes y adultos en situación de vulnerabilidad socioeconómica, que combinan jornadas laborales y cargas familiares con sus estudios.</p>
+      <p>Muchos estudiantes enfrentan al mismo tiempo brechas de conectividad y vacíos académicos por periodos prolongados fuera de la escuela, lo que puede generar frustración, desmotivación y miedo a lo digital.</p>
+      <p style="margin-bottom:0;">Por eso creamos dos rutas de acompañamiento que permiten a cada estudiante avanzar con confianza, sin sentirse atrasado frente a sus compañeros.</p>
+    </div>
+    <div class="reveal barrier-list">
+      <div class="barrier">
+        <div class="ic">💻</div>
+        <div><strong>Herramientas digitales</strong><span>Cómo entregar una tarea, usar el correo, navegar la plataforma o subir un PDF.</span></div>
+      </div>
+      <div class="barrier">
+        <div class="ic">📚</div>
+        <div><strong>Bases académicas</strong><span>Matemáticas, lengua materna, comprensión lectora y habilidades básicas de escritura.</span></div>
+      </div>
+      <div class="barrier">
+        <div class="ic">⏰</div>
+        <div><strong>Tiempo limitado</strong><span>Sesiones cortas de 5 a 10 minutos, pensadas para estudiar entre el trabajo y la familia.</span></div>
+      </div>
+      <div class="barrier">
+        <div class="ic">🛡️</div>
+        <div><strong>Seguridad digital</strong><span>Aprende a identificar estafas, videos falsos y publicidad engañosa en línea.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="programas">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Dos cursos, un mismo objetivo: nivelarte</h2>
+      <p>Elige por dónde empezar según lo que necesites reforzar. Puedes tomar los dos.</p>
+    </div>
+    <div class="program-grid">
+      <div class="program-card academica reveal">
+        <div class="pic">📐</div>
+        <h3>Nivelación Académica</h3>
+        <p>Módulos interactivos de 5 a 10 minutos para reforzar matemáticas y lengua materna, con diagnóstico rápido y retroalimentación inmediata.</p>
+        <ul>
+          <li>Diagnóstico dinámico de entrada</li>
+          <li>Micro-lecciones a tu ritmo</li>
+          <li>Ejercicios de autoevaluación</li>
+          <li>Repite los temas que necesites</li>
+        </ul>
+        <a href="#plataforma" onclick="showDemo('academica')" class="btn btn-outline" style="margin-top:8px;background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff;">Probar este curso</a>
+      </div>
+      <div class="program-card tecnologica reveal">
+        <div class="pic">🖥️</div>
+        <h3>Nivelación Tecnológica</h3>
+        <p>Un recorrido paso a paso con simuladores y guías visuales para perder el miedo a la plataforma y aprender a usar tu dispositivo.</p>
+        <ul>
+          <li>Navegación guiada por PrepaNet</li>
+          <li>Simuladores de práctica sin riesgo</li>
+          <li>Cómo subir tareas y enviar mensajes</li>
+          <li>Apoyo directo de un tutor</li>
+        </ul>
+        <a href="#plataforma" onclick="showDemo('tecnologica')" class="btn btn-teal" style="margin-top:8px;">Probar este curso</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="demo" id="plataforma">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Así se ve la plataforma</h2>
+      <p>Una vista previa del prototipo. Interactúa con los botones para ver cómo funciona.</p>
+    </div>
+    <div class="demo-tabs reveal">
+      <button class="demo-tab active" id="tabAcademica" onclick="showDemo('academica')">📐 Nivelación Académica</button>
+      <button class="demo-tab" id="tabTecnologica" onclick="showDemo('tecnologica')">🖥️ Nivelación Tecnológica</button>
+    </div>
+
+    <div class="app-frame reveal">
+      <div class="app-topbar">
+        <div class="app-logo">📘 PREPANET</div>
+        <div class="app-nav">
+          <span>Inicio</span><span>Mis Cursos</span>
+          <span id="crumbAcademica" class="on">Nivelación Académica</span>
+          <span id="crumbTecnologica">Nivelación Tecnológica</span>
+        </div>
+      </div>
+
+      <!-- ACADEMICA VIEW -->
+      <div class="app-body demo-view active" id="viewAcademica">
+        <div class="app-crumb">Nivelación Académica / Regulación Académica</div>
+        <div class="app-title">Módulo: Introducción a Fracciones y Porcentajes</div>
+        <div class="app-cols">
+          <div class="app-card">
+            <h4>Cápsula de aprendizaje (5–10 min)</h4>
+            <div class="video-box">▶</div>
+            <h4>Ponte a prueba</h4>
+            <p style="font-size:.9rem;color:var(--ink-soft);margin-bottom:10px;">Si una pizza se divide en 8 rebanadas y comes 2, ¿qué fracción representa lo que comiste?</p>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="quiz1"> a. 1/8</label>
+            <label class="quiz-opt" data-correct="true"><input type="radio" name="quiz1"> b. 2/8</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="quiz1"> c. 6/8</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="quiz1"> d. 8/2</label>
+            <button class="btn btn-teal" style="width:100%;justify-content:center;margin-top:6px;" onclick="validarQuiz()">Validar respuesta</button>
+            <div class="quiz-feedback" id="quizFeedback"></div>
+          </div>
+          <div>
+            <div class="app-card" style="margin-bottom:16px;">
+              <h4>Tu progreso</h4>
+              <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+              <div class="progress-label" id="progressLabel">20% completado</div>
+            </div>
+            <div class="app-card">
+              <h4>Recursos de apoyo</h4>
+              <div class="resource-link">📄 Guía PDF: Conceptos básicos</div>
+              <div class="resource-link">📝 Ejercicios adicionales</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TECNOLOGICA VIEW -->
+      <div class="app-body demo-view" id="viewTecnologica">
+        <div class="app-crumb">Nivelación Tecnológica / Módulo 1: Perdiendo el Miedo</div>
+        <div class="app-title">Misión de hoy: aprender a entregar una tarea</div>
+        <div class="app-cols">
+          <div class="app-card">
+            <h4>Video guía (1 min)</h4>
+            <div class="video-box">📱 ▶</div>
+            <h4>Simulador de práctica — ¡sin miedo!</h4>
+            <div class="step-row">
+              <div class="step-num" id="stepNum1">1</div>
+              <div><h5>Elegir un documento</h5><p>Toca el botón para buscar un archivo (como un PDF o foto) en tu dispositivo.</p></div>
+            </div>
+            <div class="step-row">
+              <div class="step-num" id="stepNum2">2</div>
+              <div><h5>Subir la tarea</h5><p>Presiona el botón verde para simular la entrega. ¡Listo!</p></div>
+            </div>
+            <button class="btn btn-teal" style="width:100%;justify-content:center;margin-top:10px;" onclick="simularSubida()" id="uploadBtn">Seleccionar archivo</button>
+            <div class="quiz-feedback ok" id="uploadFeedback"></div>
+          </div>
+          <div>
+            <div class="app-card" style="margin-bottom:16px;">
+              <h4>Estado actual</h4>
+              <p style="font-size:.9rem;color:var(--ink-soft);" id="uploadStatus">⏳ Esperando tu archivo...</p>
+            </div>
+            <div class="app-card">
+              <h4>¿Te atoraste en algún paso?</h4>
+              <button class="btn whatsapp-btn">💬 Pedir ayuda por WhatsApp a mi tutor</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonios">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Lo que dicen los estudiantes</h2>
+      <p>Comentarios reales de la prueba del prototipo.</p>
+    </div>
+    <div class="test-grid">
+      <div class="test-card reveal">
+        <p class="quote">"Las matemáticas siempre se me han dificultado, pero los ejercicios fueron fáciles de entender. Me ayudó que explicaran paso por paso."</p>
+        <div class="test-person">
+          <div class="avatar" style="background:var(--teal);">M</div>
+          <div><strong>María</strong><span>62 años, comerciante</span></div>
+        </div>
+      </div>
+      <div class="test-card reveal">
+        <p class="quote">"Me gustó el curso porque pude repasar cosas que ya había olvidado. Creo que necesitaría más clases para aprender mejor."</p>
+        <div class="test-person">
+          <div class="avatar" style="background:var(--navy);">C</div>
+          <div><strong>Carlos</strong><span>55 años, trabajador administrativo</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ods">
+  <div class="wrap">
+    <div class="ods-badge reveal">ODS<br>4</div>
+    <div class="reveal">
+      <h2>Educación de calidad</h2>
+      <p>Este proyecto impacta directamente el ODS 4, buscando que la educación sea accesible y de calidad para todos, mejorando la infraestructura escolar básica y adoptando la transformación digital dentro de PrepaNet.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <div class="section-head" style="margin-bottom:26px;">
+        <h2>Inscríbete a los cursos de nivelación</h2>
+        <p>Cuéntanos un poco sobre ti y te contactaremos para comenzar.</p>
+      </div>
+      <div class="contact-info">
+        <div class="info-row"><div class="ic">📧</div><div><strong>nivelacion@prepanet.mx</strong><span>Respondemos en menos de 48 horas</span></div></div>
+        <div class="info-row"><div class="ic">💬</div><div><strong>Soporte por WhatsApp</strong><span>Ayuda directa con un tutor</span></div></div>
+        <div class="info-row"><div class="ic">🏫</div><div><strong>Prep@net · Tec de Monterrey</strong><span>Campus Toluca — Iniciativa de Servicio Social</span></div></div>
+      </div>
+    </div>
+    <form id="contactForm" novalidate>
+      <div><label for="fullName">Nombre completo</label><input type="text" id="fullName" required></div>
+      <div><label for="age">Edad</label><input type="number" id="age" min="15" max="90" required></div>
+      <div class="full"><label for="email">Correo electrónico</label><input type="email" id="email" required></div>
+      <div><label for="course">Curso de interés</label>
+        <select id="course" required>
+          <option value="">Selecciona una opción</option>
+          <option>Nivelación Académica</option>
+          <option>Nivelación Tecnológica</option>
+          <option>Ambos cursos</option>
+        </select>
+      </div>
+      <div><label for="phone">Teléfono</label><input type="tel" id="phone" required></div>
+      <div class="full"><button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Enviar solicitud</button></div>
+      <div class="form-msg" id="formMsg"></div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">📘 PrepaNet · Nivelación</div>
+        <p class="desc">Iniciativa de Servicio Social del Tec de Monterrey, Campus Toluca, en colaboración con Prep@net, para reducir el rezago educativo y digital.</p>
+      </div>
+      <div>
+        <h4>Navegación</h4>
+        <ul><li><a href="#programas">Programas</a></li><li><a href="#plataforma">Plataforma</a></li><li><a href="#testimonios">Testimonios</a></li><li><a href="#contacto">Contacto</a></li></ul>
+      </div>
+      <div>
+        <h4>Equipo</h4>
+        <ul><li>Nadia Chahbi Lucena</li><li>Arturo Rojas Martínez</li><li>Fernanda Serrano Sáenz</li><li>Valeria Alejandra Juárez García</li></ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 PrepaNet · Iniciativa de Servicio Social, Tec de Monterrey.</span>
+      <span>ODS 4 — Educación de calidad</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Menú móvil
+  const burgerBtn = document.getElementById('burgerBtn');
+  const navMenu = document.getElementById('navMenu');
+  burgerBtn.addEventListener('click', () => {
+    const open = navMenu.style.display === 'block';
+    navMenu.style.display = open ? 'none' : 'block';
+    if(!open){
+      navMenu.style.position='absolute'; navMenu.style.top='64px'; navMenu.style.left='0'; navMenu.style.right='0';
+      navMenu.style.background='#fff'; navMenu.style.padding='18px 24px'; navMenu.style.borderBottom='1px solid var(--line)';
+      navMenu.querySelector('ul').style.flexDirection='column'; navMenu.querySelector('ul').style.gap='14px';
+    }
+  });
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Demo tabs
+  function showDemo(which){
+    document.getElementById('tabAcademica').classList.toggle('active', which==='academica');
+    document.getElementById('tabTecnologica').classList.toggle('active', which==='tecnologica');
+    document.getElementById('viewAcademica').classList.toggle('active', which==='academica');
+    document.getElementById('viewTecnologica').classList.toggle('active', which==='tecnologica');
+    document.getElementById('crumbAcademica').classList.toggle('on', which==='academica');
+    document.getElementById('crumbTecnologica').classList.toggle('on', which==='tecnologica');
+    document.getElementById('plataforma').scrollIntoView({behavior:'smooth'});
+  }
+
+  // Quiz interaction
+  function validarQuiz(){
+    const opts = document.querySelectorAll('.quiz-opt');
+    const feedback = document.getElementById('quizFeedback');
+    const selected = document.querySelector('input[name="quiz1"]:checked');
+    opts.forEach(o=>o.classList.remove('correct','wrong'));
+    if(!selected){
+      feedback.textContent = 'Selecciona una respuesta antes de validar.';
+      feedback.className = 'quiz-feedback err';
+      return;
+    }
+    const label = selected.closest('.quiz-opt');
+    const isCorrect = label.dataset.correct === 'true';
+    label.classList.add(isCorrect ? 'correct' : 'wrong');
+    if(isCorrect){
+      feedback.textContent = '¡Muy bien! 2/8 se simplifica a 1/4.';
+      feedback.className = 'quiz-feedback ok';
+      document.getElementById('progressFill').style.width = '40%';
+      document.getElementById('progressLabel').textContent = '40% completado';
+    } else {
+      feedback.textContent = 'Casi. Recuerda: rebanadas que comiste / total de rebanadas.';
+      feedback.className = 'quiz-feedback err';
+    }
+  }
+
+  // Upload simulator
+  let uploadStep = 0;
+  function simularSubida(){
+    const btn = document.getElementById('uploadBtn');
+    const status = document.getElementById('uploadStatus');
+    if(uploadStep === 0){
+      document.getElementById('stepNum1').classList.add('done');
+      document.getElementById('stepNum1').textContent = '✓';
+      status.textContent = '📄 Archivo seleccionado: tarea_matematicas.pdf';
+      btn.textContent = 'Subir tarea de prueba';
+      uploadStep = 1;
+    } else {
+      document.getElementById('stepNum2').classList.add('done');
+      document.getElementById('stepNum2').textContent = '✓';
+      status.textContent = '✅ ¡Tarea entregada con éxito!';
+      document.getElementById('uploadFeedback').textContent = '¡Bien hecho! Así de fácil se entrega una tarea real en PrepaNet.';
+      btn.disabled = true;
+      btn.style.opacity = '.6';
+    }
+  }
+
+  // Contact form
+  const form = document.getElementById('contactForm');
+  const msg = document.getElementById('formMsg');
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const fullName = document.getElementById('fullName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const course = document.getElementById('course').value;
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const phoneOk = phone.replace(/\D/g,'').length >= 7;
+    msg.classList.remove('ok','err');
+    if(!fullName || !emailOk || !phoneOk || !course){
+      msg.textContent = 'Por favor revisa tus datos: verifica el correo y el teléfono.';
+      msg.classList.add('show','err');
+      return;
+    }
+    msg.textContent = '¡Gracias, ' + fullName + '! Te contactaremos pronto para comenzar tu curso.';
+    msg.classList.add('show','ok');
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
